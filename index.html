@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Attendance</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Student QR Code Attendance</h1>
+  <p>Scan your QR code to mark attendance</p>
+  
+  <!-- Video element for QR code scanning -->
+  <video id="preview" width="100%"></video>
+  
+  <div id="output"></div>
+
+  <!-- Include the QR Code Scanner library -->
+  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
