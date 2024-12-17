@@ -1,14 +1,20 @@
+// Function to start the QR code scanner
 function startScanner() {
     const outputDiv = document.getElementById('output');
     
     // Initialize the QR code scanner
-    const qrCodeScanner = new Html5QrcodeScanner("preview", {
-      fps: 10,
-      qrbox: 250
-    });
-    
+    const qrCodeScanner = new Html5Qrcode("preview");
+  
     // Start the scanner
-    qrCodeScanner.render(onScanSuccess);
+    qrCodeScanner.start(
+      { facingMode: "environment" }, // Camera settings
+      {
+        fps: 10,   // Frames per second
+        qrbox: 250 // The size of the QR box for scanning
+      },
+      onScanSuccess, // On successful scan, call the onScanSuccess function
+      onScanError    // On scan error, call the onScanError function
+    );
     
     // On successful scan, display the QR code data
     function onScanSuccess(decodedText, decodedResult) {
@@ -23,14 +29,21 @@ function startScanner() {
       // Send the data to Google Sheets
       submitAttendanceToGoogleSheet(name, rollNo, timestamp);
     }
+  
+    // Handle any errors that occur during the scanning process
+    function onScanError(errorMessage) {
+      console.error("Error: ", errorMessage);
+    }
   }
   
-  // Start the QR code scanner
-  startScanner();
+  // Start the QR code scanner when the page loads
+  window.onload = function() {
+    startScanner();
+  };
   
   // Function to submit the attendance data to Google Sheets
   function submitAttendanceToGoogleSheet(name, rollNo, timestamp) {
-    const url = "https://script.google.com/macros/s/AKfycbym04UeYiSsYFr7wl8gFxU90T1SiaaqovmC0m7Fqrw/dev";  // Replace with the actual URL from your Google Apps Script
+    const url = "YOUR_GOOGLE_APPS_SCRIPT_URL";  // Replace with the actual URL from your Google Apps Script
     
     const data = {
       name: name,
